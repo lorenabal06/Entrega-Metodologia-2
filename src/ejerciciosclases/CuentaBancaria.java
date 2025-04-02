@@ -33,4 +33,9 @@ package ejerciciosclases;
             this.saldo -= cantidad;
             System.out.println("Retiro exitoso. Nuevo saldo: " + this.saldo);
         }
+
+        // Método para obtener el saldo
+        public double getSaldo() {
+            return saldo;
+        }
     }

@@ -1,6 +1,6 @@
 package ejerciciosclases;
-
 public class Banco {
+
     public static void main(String[] args) {
         // Creamos una cuenta bancaria con un saldo inicial de 500.0
         CuentaBancaria cuenta = new CuentaBancaria("987654", 500.0);
@@ -36,7 +36,3 @@ public class Banco {
         }
     }
 }
-
-
-
-

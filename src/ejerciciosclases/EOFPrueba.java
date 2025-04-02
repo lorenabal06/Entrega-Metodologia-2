@@ -1,29 +1,31 @@
 package ejerciciosclases;
-
 import java.io.*;
 
 public class EOFPrueba {
-    public static void main(String[] args) {
-        try {
-            // Creamos un archivo temporal con datos
-            File archivo = new File("datos.txt");
-            ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(archivo));
+    public static void escribirArchivo(String nombreArchivo) throws IOException {
+        try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(nombreArchivo))) {
             salida.writeInt(42); // Escribimos un número en el archivo
-            salida.close();
-
-            // Intentamos leer más datos de los que hay en el archivo
-            ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(archivo));
-            System.out.println("Número leído: " + entrada.readInt());
-            System.out.println("Intentando leer otro número...");
-            System.out.println("Número leído: " + entrada.readInt()); // Esto genera EOFException
-
-            entrada.close();
-        } catch (EOFException e) {
-            System.err.println("¡Se ha alcanzado el final del archivo inesperadamente!");
-        } catch (IOException e) {
-            System.err.println("Error de entrada/salida: " + e.getMessage());
         }
+    }
 
+    public static String leerArchivo(String nombreArchivo) {
+        StringBuilder resultado = new StringBuilder();
+        try (ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(nombreArchivo))) {
+            resultado.append("Número leído: ").append(entrada.readInt()).append("\n");
+            resultado.append("Intentando leer otro número...\n");
+            resultado.append("Número leído: ").append(entrada.readInt()).append("\n"); // Esto genera EOFException
+        } catch (EOFException e) {
+            resultado.append("¡Se ha alcanzado el final del archivo inesperadamente!\n");
+        } catch (IOException e) {
+            resultado.append("Error de entrada/salida: ").append(e.getMessage()).append("\n");
+        }
+        return resultado.toString();
+    }
+
+    public static void main(String[] args) throws IOException {
+        String nombreArchivo = "datos.txt";
+        escribirArchivo(nombreArchivo);
+        System.out.println(leerArchivo(nombreArchivo));
         System.out.println("El programa sigue ejecutándose después del error.");
     }
 }

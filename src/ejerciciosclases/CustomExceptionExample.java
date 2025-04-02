@@ -1,10 +1,11 @@
 package ejerciciosclases;
 
 class MyCustomException extends Exception {
-        public MyCustomException(String message) {
-            super(message);
-        }
+    public MyCustomException(String message) {
+        super(message);
     }
+}
+
 public class CustomExceptionExample {
     public static void verificarNumero(int numero) throws MyCustomException {
         if (numero < 10) {
@@ -23,3 +24,4 @@ public class CustomExceptionExample {
         }
     }
 }
+
